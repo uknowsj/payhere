@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+npm run lint-staged
+
+# 현재 브랜치 확인
+current_branch=$(git rev-parse --abbrev-ref HEAD)
+# 푸시 성공 메세지
+echo "Commit completed successfully: $current_branch"
