@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+	.react-calendar {
+		width: 384px;
+		padding: 1.5rem;
+		font-family: 'Pretendard Variable', 'SUIT Variable', sans-serif;
+
+		.react-calendar__navigation__label__labelText {
+			@apply text-lg font-bold;
+		}
+		.react-calendar__tile {
+			@apply w-48pxr h-48pxr rounded-2xl;
+		}
+		.react-calendar__tile--now {
+			@apply font-bold bg-white;
+		}
+		.react-calendar__tile:hover {
+			@apply bg-slate-100;
+		}
+		.react-calendar__tile--active {
+			@apply bg-blue-600 text-white !important;
+		}
+		.react-calendar__month-view__days__day--weekend {
+			@apply text-red-400;
+		}
+	}
+}
