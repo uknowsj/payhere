@@ -6,7 +6,6 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 	size?: 'sm' | 'md' | 'lg'
 	isDisabled?: boolean
 }
-
 export default function Button(props: ButtonProps) {
 	const { variant = 'solid', size = 'md', isDisabled, className, children } = props
 
