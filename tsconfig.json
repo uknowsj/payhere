@@ -10,7 +10,7 @@
 			"@/*": ["src/*"],
 			"@/assets/*": ["src/assets/*"],
 			"@/components/*": ["src/components/*"],
-			"@/ui/*": ["src/ui/*"],
+			"@/components/shared/*": ["src/components/shared/*"],
 			"@/utils/*": ["src/utils/*"]
 		},
 		/* Bundler mode */
