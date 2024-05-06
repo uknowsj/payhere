@@ -1,4 +1,4 @@
-import { Text } from '@/ui/typography'
+import { Text } from '@/components/shared/typography'
 
 export default function Header() {
 	return (
