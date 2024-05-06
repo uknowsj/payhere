@@ -1,57 +1,46 @@
+import dayjs from 'dayjs'
+import { useState } from 'react'
+
 import Header from '@/components/header'
 import Layout from '@/components/layout'
 import SearchBar from '@/components/search-bar'
-import { Text } from '@/ui/typography'
+import SearchResult from '@/components/search-result'
+import { Text } from '@/components/shared/typography'
+import { MAX_DATE } from '@/constant/date'
+import { Holiday } from '@/types'
+
+const initDate = () => {
+	const startDate = dayjs().toDate()
+	const nextMonthDate = dayjs().add(1, 'month')
+	const endDate = nextMonthDate.isAfter(dayjs(MAX_DATE)) ? dayjs(MAX_DATE) : nextMonthDate
+	return { start: startDate, end: endDate.toDate() }
+}
 
 function App() {
+	const [dateRange, setDateRange] = useState(() => initDate())
+	const [searchedDateRange, setSearchedDateRange] = useState(() => initDate())
+	const [holidayData, setHolidayData] = useState<Holiday[][]>([])
+
 	return (
 		<Layout>
 			<Header />
-			{/* 날짜 선택 */}
-			<section>
+			<section aria-label='조회 날짜 선택'>
 				<div className='flex py-16pxr'>
-					<Text variant='label1'>조회하실 날짜를 지정해주세요</Text>
+					<Text variant='label2'>조회하실 날짜를 지정해주세요</Text>
 				</div>
-				<div className='relative mt-8pxr flex h-118pxr flex-col justify-center'>
-					{/* TODO 색지정 */}
-					<div className='absolute left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-[#60A5FA]' />
+				<div className='relative mt-8pxr flex h-132pxr flex-col justify-center'>
+					<div className='absolute left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-primary100' />
 					<div className='relative'>
-						<SearchBar />
+						<SearchBar
+							dateRange={dateRange}
+							setDateRange={setDateRange}
+							setHolidayData={setHolidayData}
+							setSearchedDateRange={setSearchedDateRange}
+						/>
 					</div>
 				</div>
 			</section>
-
-			{/* 검색 결과 */}
-			<section>
-				<div className='flex py-16pxr'>
-					<Text variant='title1'>검색 결과</Text>
-				</div>
-				<hr />
-				<div className='flex'>
-					<div className=''>
-						{/* icon */}
-						<img src='' alt='예약 가능 달력 아이콘' />
-						<p>예약 가능 일 수</p>
-					</div>
-					<div className='ml-36pxr flex flex-1'>
-						<p>242일</p>
-					</div>
-				</div>
-				<div className='flex'>
-					<div className='cursor-pointer'>
-						{/* icon */}
-						<img src='' alt='공휴일 달력 아이콘' />
-						<p>전체 공휴일 수</p>
-						<button>더보기</button>
-					</div>
-					<div className='ml-36pxr flex flex-1'>
-						<p className='cursor-pointer'>242일</p>
-					</div>
-				</div>
-			</section>
-
-			{/* 공휴일 상세보기 */}
-			{/* 연도별 공휴일 리스트 받아서 최대 3개 보여주기 */}
+			<SearchResult dateRange={searchedDateRange} holidayData={holidayData} />
 		</Layout>
 	)
 }
