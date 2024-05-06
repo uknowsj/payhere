@@ -24,7 +24,7 @@
 			@apply bg-blue-600 text-white !important;
 		}
 		.react-calendar__month-view__days__day--weekend {
-			@apply text-red-400;
+			@apply text-red-500;
 		}
 	}
 }

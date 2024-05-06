@@ -1,10 +1,10 @@
 export const textVariants = {
 	// 24px
-	heading1: { as: 'h1', fontSize: 'text-2xl', fontWeight: 'font-extrabold' },
+	heading1: { as: 'h1', fontSize: 'text-2xl', fontWeight: 'font-bold' },
 	// 20px
-	title1: { as: 'h3', fontSize: 'text-xl', fontWeight: 'font-bold' },
+	title1: { as: 'h3', fontSize: 'text-xl', fontWeight: 'font-semibold' },
 	// 18px
-	title2: { as: 'h3', fontSize: 'text-lg', fontWeight: 'font-bold' },
+	title2: { as: 'h3', fontSize: 'text-lg', fontWeight: 'font-semibold' },
 	// 16px
 	title3: { as: 'h3', fontSize: 'text-base', fontWeight: 'font-medium' },
 	// 16px

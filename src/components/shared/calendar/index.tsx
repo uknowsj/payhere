@@ -1,17 +1,17 @@
+import { Value } from 'node_modules/react-calendar/dist/cjs/shared/types'
 import { useRef, useState } from 'react'
-import Calendar from 'react-calendar'
-
-import { ChevronIC, ChevronFilledIC } from '@/assets/icons'
+import Calendar, { TileClassNameFunc } from 'react-calendar'
 
 import 'react-calendar/dist/Calendar.css'
 import './calendar.css'
 
+import { ChevronIC, ChevronFilledIC } from '@/assets/icons'
 import { MAX_DATE } from '@/constant/date'
+import useHoliday from '@/hooks/use-holiday'
 import { useOutsideClick } from '@/hooks/use-outside-click'
+import { isSameDay } from '@/utils/date'
 import { cn } from '@/utils/style'
 
-type ValuePiece = Date | null
-type Value = ValuePiece | [ValuePiece, ValuePiece]
 interface DatePickerProps {
 	isOpen?: boolean
 	onChange: (date: Date) => void
@@ -19,9 +19,10 @@ interface DatePickerProps {
 	defaultDate?: Date
 }
 export default function CalendarModal({ isOpen, onChange, onClose, defaultDate }: DatePickerProps) {
-	const [date, setDate] = useState<Value>(defaultDate ?? new Date())
+	const [date, setDate] = useState<Date>(defaultDate ?? new Date())
 	const datePickerRef = useRef<HTMLDivElement>(null)
 
+	const { data } = useHoliday(date)
 	useOutsideClick({ ref: datePickerRef, handler: onClose })
 
 	const changeDate = (value: Value) => {
@@ -33,23 +34,34 @@ export default function CalendarModal({ isOpen, onChange, onClose, defaultDate }
 		}
 	}
 
+	// 한국 공휴일 표시
+	const changeTileContent: TileClassNameFunc = ({ date, view }) => {
+		if (view === 'month') {
+			if (data?.find((item) => isSameDay(item.date, date))) {
+				return 'text-red-500'
+			}
+		}
+	}
+
 	return (
 		<div className={cn('absolute top-full mt-16pxr overflow-hidden rounded-2xl', isOpen ? 'block' : 'hidden')}>
 			<main ref={datePickerRef} className='relative z-10'>
 				<Calendar
+					locale='ko'
 					calendarType='gregory'
+					value={date}
+					maxDate={new Date(MAX_DATE)}
 					prevLabel={<LabelIcon Icon={ChevronIC} dir='left' />}
 					prev2Label={<LabelIcon Icon={ChevronFilledIC} dir='left' />}
 					nextLabel={<LabelIcon Icon={ChevronIC} />}
 					next2Label={<LabelIcon Icon={ChevronFilledIC} />}
 					formatDay={(_, date) => date.getDate().toString()}
+					tileClassName={changeTileContent}
 					showNeighboringMonth={false}
 					onChange={changeDate}
-					value={date}
-					maxDate={new Date(MAX_DATE)}
 				/>
 			</main>
-			<div className='fixed inset-0 z-0 bg-[#00000070]' />
+			<div className='fixed inset-0 z-[1] bg-[#00000070]' />
 		</div>
 	)
 }
