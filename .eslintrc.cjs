@@ -8,6 +8,7 @@ module.exports = {
 		'plugin:prettier/recommended',
 		'plugin:unocss/recommended',
 		'plugin:tailwindcss/recommended',
+		'plugin:@tanstack/eslint-plugin-query/recommended',
 	],
 	ignorePatterns: ['dist', '.eslintrc.cjs'],
 	parser: '@typescript-eslint/parser',
