@@ -1,7 +1,7 @@
 import React from 'react'
 
-import { textVariants } from '@/ui/typography/style.css'
-import { AsElementProps } from '@/ui/typography/types'
+import { textVariants } from '@/components/shared/typography/style.css'
+import { AsElementProps } from '@/components/shared/typography/types'
 import { cn, omitProps } from '@/utils/style'
 
 export interface TextProps extends AsElementProps {
@@ -9,7 +9,7 @@ export interface TextProps extends AsElementProps {
 }
 function Text(props: TextProps, ref: React.Ref<HTMLElement>) {
 	const { className, variant, children, ...args } = props
-	const as = textVariants[variant]?.as ?? 'p'
+	const as = props.as ?? textVariants[variant]?.as ?? 'p'
 	const textUtilities = omitProps(textVariants[variant], ['as']).join(' ')
 
 	return React.createElement(
