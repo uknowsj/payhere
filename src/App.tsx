@@ -29,7 +29,8 @@ function App() {
 					<Text variant='label2'>조회하실 날짜를 지정해주세요</Text>
 				</div>
 				<div className='relative mt-8pxr flex h-132pxr flex-col justify-center'>
-					<div className='absolute left-1/2 z-0 h-full w-screen -translate-x-1/2 bg-primary100' />
+					{/* eslint-disable-next-line tailwindcss/classnames-order */}
+					<div className='bg-primary100 absolute left-1/2 z-0 h-full w-screen -translate-x-1/2' />
 					<div className='relative'>
 						<SearchBar
 							dateRange={dateRange}
