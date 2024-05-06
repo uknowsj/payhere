@@ -16,7 +16,7 @@
 		@apply w-full px-6 gap-2 h-12;
 	}
 	.solid {
-		@apply bg-primary text-white;
+		@apply bg-primary500 text-white;
 	}
 	.outline {
 		@apply border-blue-300 bg-white;

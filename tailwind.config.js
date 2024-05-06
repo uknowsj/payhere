@@ -2,12 +2,12 @@
 const pxToRem = (px, base = 16) => `${px / base}rem`
 
 export default {
-	important: true,
 	content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
 	theme: {
 		extend: {
 			colors: {
-				primary: '#3F64ED',
+				primary500: '#1A8EFF',
+				primary100: '#B2DAFF',
 			},
 			spacing: {
 				...Array.from({ length: 300 }, (_, i) => i).reduce((acc, px) => {
