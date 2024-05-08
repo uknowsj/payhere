@@ -5,6 +5,7 @@ import Header from '@/components/header'
 import Layout from '@/components/layout'
 import SearchBar from '@/components/search-bar'
 import SearchResult from '@/components/search-result'
+import ErrorBoundaryLayout from '@/components/shared/error-boundary/layout'
 import { Text } from '@/components/shared/typography'
 import { MAX_DATE } from '@/constant/date'
 import { Holiday } from '@/types'
@@ -24,24 +25,25 @@ function App() {
 	return (
 		<Layout>
 			<Header />
-			<section aria-label='조회 날짜 선택'>
-				<div className='flex py-16pxr'>
-					<Text variant='label2'>조회하실 날짜를 지정해주세요</Text>
-				</div>
-				<div className='relative mt-8pxr flex h-132pxr flex-col justify-center'>
-					{/* eslint-disable-next-line tailwindcss/classnames-order */}
-					<div className='bg-primary100 absolute left-1/2 z-0 h-full w-screen -translate-x-1/2' />
-					<div className='relative'>
-						<SearchBar
-							dateRange={dateRange}
-							setDateRange={setDateRange}
-							setHolidayData={setHolidayData}
-							setSearchedDateRange={setSearchedDateRange}
-						/>
+			<ErrorBoundaryLayout>
+				<section aria-label='조회 날짜 선택'>
+					<div className='flex py-16pxr'>
+						<Text variant='label2'>조회하실 날짜를 지정해주세요</Text>
 					</div>
-				</div>
-			</section>
-			<SearchResult dateRange={searchedDateRange} holidayData={holidayData} />
+					<div className='relative mt-8pxr flex h-132pxr flex-col justify-center'>
+						<div className='bg-primary100 absolute left-1/2 z-0 h-full w-screen -translate-x-1/2' />
+						<div className='relative'>
+							<SearchBar
+								dateRange={dateRange}
+								setDateRange={setDateRange}
+								setHolidayData={setHolidayData}
+								setSearchedDateRange={setSearchedDateRange}
+							/>
+						</div>
+					</div>
+				</section>
+				<SearchResult dateRange={searchedDateRange} holidayData={holidayData} />
+			</ErrorBoundaryLayout>
 		</Layout>
 	)
 }

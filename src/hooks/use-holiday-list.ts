@@ -14,15 +14,12 @@ interface UseHolidayProps {
 const useHolidayList = ({ years, dateRange, enabled = false }: UseHolidayProps) => {
 	const combineQueries = useCallback(
 		(results: UseQueryResult<Holiday[], Error>[]) => {
-			return {
-				data: results.reduce((acc: Holiday[][], curr) => {
-					const filteredHolidays = curr.data?.filter((item) => filterDate(item.date, dateRange))
-					if (filteredHolidays) {
-						acc.push(filteredHolidays)
-					}
-					return acc
-				}, []),
-			}
+			if (!results) return { data: [] }
+
+			const data = results.map(
+				(result) => result.data?.filter((holiday) => filterDate(holiday.date, dateRange)) || [],
+			)
+			return { data }
 		},
 		[dateRange],
 	)
