@@ -8,6 +8,7 @@ export default {
 			colors: {
 				primary500: '#1A8EFF',
 				primary100: '#B2DAFF',
+				negative: '#EF4444',
 			},
 			spacing: {
 				...Array.from({ length: 300 }, (_, i) => i).reduce((acc, px) => {
