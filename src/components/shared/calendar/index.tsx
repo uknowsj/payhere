@@ -20,9 +20,10 @@ interface DatePickerProps {
 }
 export default function CalendarModal({ isOpen, onChange, onClose, defaultDate }: DatePickerProps) {
 	const [date, setDate] = useState<Date>(defaultDate ?? new Date())
+	const [year, setYear] = useState(date.getFullYear())
 	const datePickerRef = useRef<HTMLDivElement>(null)
 
-	const { data } = useHoliday(date)
+	const { data } = useHoliday(year)
 	useOutsideClick({ ref: datePickerRef, handler: onClose })
 
 	const changeDate = (value: Value) => {
@@ -31,6 +32,13 @@ export default function CalendarModal({ isOpen, onChange, onClose, defaultDate }
 			setDate(value)
 			onChange(value)
 			onClose()
+		}
+	}
+
+	// 현재 캘린더 연도의 공휴일 조회
+	const changeCalendarYear = (date: Date | null) => {
+		if (date) {
+			setYear(date.getFullYear())
 		}
 	}
 
@@ -59,6 +67,7 @@ export default function CalendarModal({ isOpen, onChange, onClose, defaultDate }
 					tileClassName={changeTileContent}
 					showNeighboringMonth={false}
 					onChange={changeDate}
+					onActiveStartDateChange={({ activeStartDate }) => changeCalendarYear(activeStartDate)}
 				/>
 			</main>
 			<div className='fixed inset-0 z-[1] bg-[#00000070]' />
