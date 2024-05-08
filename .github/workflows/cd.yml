@@ -7,7 +7,7 @@ on:
         branches:
             - main
 jobs:
-    Deploy-Production:
+    deploy:
         runs-on: ubuntu-latest
         steps:
             - uses: actions/checkout@v2
@@ -19,3 +19,23 @@ jobs:
               run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
             - name: Deploy Project Artifacts to Vercel
               run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
+
+    release:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: write
+        steps:
+            - uses: actions/checkout@v2
+            - name: Extract Version
+              run: |
+                  VERSION=$(echo "${{ github.event.head_commit.message }}" | egrep -o '[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}')
+                  echo "Extracted version: $VERSION"
+                  echo "::set-output name=version::$VERSION"
+              id: extract_version_name
+            - name: Release
+              uses: actions/create-release@v1
+              env:
+                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                  tag_name: ${{ steps.extract_version_name.outputs.version }}
+                  release_name: ${{ steps.extract_version_name.outputs.version }}
