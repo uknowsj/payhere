@@ -18,6 +18,7 @@ module.exports = {
 		'@typescript-eslint/no-unused-vars': 'warn',
 		'@typescript-eslint/no-explicit-any': 'warn',
 		'unocss/classnames-order': 'off',
+		'tailwindcss/classnames-order': 'off',
 		'import/order': [
 			'warn',
 			{
