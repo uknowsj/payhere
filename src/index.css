@@ -11,19 +11,19 @@
 		src: url('./assets/fonts/PretendardVariable.woff2') format('woff2-variations');
 	}
 	@font-face {
-		font-family: 'Pretendard-Bold';
+		font-family: 'Pretendard';
 		src: url('./assets//fonts//Pretendard-Bold.subset.woff') format('woff');
 		font-weight: 700;
 		font-style: normal;
 	}
 	@font-face {
-		font-family: 'Pretendard-Medium';
+		font-family: 'Pretendard';
 		src: url('./assets//fonts//Pretendard-Regular.subset.woff') format('woff');
 		font-weight: 500;
 		font-style: normal;
 	}
 	@font-face {
-		font-family: 'Pretendard-Regular';
+		font-family: 'Pretendard';
 		src: url('./assets//fonts//Pretendard-Regular.subset.woff') format('woff');
 		font-weight: 400;
 		font-style: normal;
@@ -35,6 +35,7 @@
 		font-style: normal;
 	}
 	body {
-		font-family: 'Pretendard Variable', 'SUIT Variable', sans-serif;
+		font-family: 'Pretendard Variable', 'Pretendard', 'SUIT Variable', sans-serif;
+		font-display: fallback;
 	}
 }
